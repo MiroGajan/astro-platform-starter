@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Business Card Editor</title>
+  <title>GoodRequest Business Signature Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,12 +32,16 @@
       padding: 8px;
       box-sizing: border-box;
     }
-    .submit-btn {
+    .submit-btn, .copy-btn {
       padding: 10px 15px;
       background-color: #00a8e2;
       color: #fff;
       border: none;
       cursor: pointer;
+      margin-top: 10px;
+    }
+    .copy-btn {
+      background-color: #4CAF50;
     }
   </style>
 </head>
@@ -67,10 +71,11 @@
     <input type="url" id="image" value="https://goodrequest-web.s3.eu-central-1.amazonaws.com/Macik_2037533c8c.png?updated_at=2024-10-02T10:08:22.009Z">
   </div>
   <button type="submit" class="submit-btn">Update Card</button>
+  <button type="button" class="copy-btn" onclick="copyHTML()">Copy HTML</button>
 </form>
 
 <h2>Business Card Preview</h2>
-<table cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;table-layout:fixed;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;max-width:318px;" width="280" class="card">
+<table cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;table-layout:fixed;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;max-width:318px;" width="280" class="card" id="card-preview">
   <tbody>
     <tr>
       <td style="width: 80px; vertical-align: middle;">
@@ -84,14 +89,14 @@
           <font color="#555555">Head of Business</font>
         </p>
         <p id="card-phone" style="margin:5px 0; line-height: 1;">
-          <a href="tel:+421908837627" style="color:#666666;text-decoration:none;" target="_blank">+421 908 837 627</a>
+          <a href="tel:+421901 000 000" style="color:#666666;text-decoration:none;" target="_blank">+421 901 000 000</a>
         </p>
         <p style="margin:5px 0; line-height: 1;">
           <a href="https://www.goodrequest.com/" style="color:#00a8e2;text-decoration:none;" target="_blank">www.goodrequest.com</a>
         </p>
         <p style="margin:5px 0; line-height: 1;">
           <a id="card-linkedin" href="https://www.linkedin.com/in/martin-mac%C3%ADk/" target="_blank" style="display:inline-block;vertical-align:middle;">
-            <img src="https://org59941.icns.email/buttons/linkedin3-small-000000-FFFFFF-FFFFFF-round-left.png" width="101" height="22" alt="Let's Connect">
+            <img src="https://org59941.icns.email/buttons/linkedin3-small-000000-FFFFFF-FFFFFF-round-left.png" width="80" height="18" alt="Let's Connect">
           </a>
         </p>
       </td>
@@ -119,6 +124,17 @@
     document.getElementById('card-linkedin').href = linkedin;
     document.getElementById('card-image').src = image;
   });
+
+  function copyHTML() {
+    const cardHTML = document.getElementById('card-preview').outerHTML;
+    const textarea = document.createElement('textarea');
+    textarea.value = cardHTML;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('Business signature HTML copied to clipboard!');
+  }
 </script>
 
 </body>
