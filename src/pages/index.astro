@@ -1,21 +1,125 @@
----
-import Layout from '../layouts/Layout.astro';
-import ContextAlert from '../components/ContextAlert.astro';
-import Markdown from '../components/Markdown.astro';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Card Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      max-width: 318px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .card img {
+      width: 80px;
+      height: 80px;
+      display: block;
+      border: 0;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    .submit-btn {
+      padding: 10px 15px;
+      background-color: #00a8e2;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
+<h2>Edit Business Card</h2>
 
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
----
+<form id="editor-form">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" value="Martin Macík">
+  </div>
+  <div class="form-group">
+    <label for="title">Job Title</label>
+    <input type="text" id="title" value="Head of Business">
+  </div>
+  <div class="form-group">
+    <label for="phone">Telephone Number</label>
+    <input type="tel" id="phone" value="+421 908 837 627">
+  </div>
+  <div class="form-group">
+    <label for="linkedin">LinkedIn URL</label>
+    <input type="url" id="linkedin" value="https://www.linkedin.com/in/martin-mac%C3%ADk/">
+  </div>
+  <div class="form-group">
+    <label for="image">Image URL</label>
+    <input type="url" id="image" value="https://goodrequest-web.s3.eu-central-1.amazonaws.com/Macik_2037533c8c.png?updated_at=2024-10-02T10:08:22.009Z">
+  </div>
+  <button type="submit" class="submit-btn">Update Card</button>
+</form>
 
-<Layout title="Welcome to Astro.">
-    <ContextAlert class="mb-4" />
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="text-lg mb-10" />
-    <p class="mb-8">
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg btn-primary sm:btn-wide">Read the Docs</a>
-    </p>
-</Layout>
+<h2>Business Card Preview</h2>
+<table cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;table-layout:fixed;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;max-width:318px;" width="280" class="card">
+  <tbody>
+    <tr>
+      <td style="width: 80px; vertical-align: middle;">
+        <img id="card-image" src="https://goodrequest-web.s3.eu-central-1.amazonaws.com/Macik_2037533c8c.png?updated_at=2024-10-02T10:08:22.009Z" alt="">
+      </td>
+      <td style="color:#555555;font-size:13px; vertical-align: middle; padding-left:15px; padding-top:10px; padding-bottom:10px;">
+        <p style="margin:5px 0; line-height: 1;">
+          <span id="card-name" style="font-weight: bold; font-size: 20px;"><font color="#000000">Martin Macík&nbsp;</font></span>
+        </p>
+        <p id="card-title" style="margin:5px 0; line-height: 1;">
+          <font color="#555555">Head of Business</font>
+        </p>
+        <p id="card-phone" style="margin:5px 0; line-height: 1;">
+          <a href="tel:+421908837627" style="color:#666666;text-decoration:none;" target="_blank">+421 908 837 627</a>
+        </p>
+        <p style="margin:5px 0; line-height: 1;">
+          <a href="https://www.goodrequest.com/" style="color:#00a8e2;text-decoration:none;" target="_blank">www.goodrequest.com</a>
+        </p>
+        <p style="margin:5px 0; line-height: 1;">
+          <a id="card-linkedin" href="https://www.linkedin.com/in/martin-mac%C3%ADk/" target="_blank" style="display:inline-block;vertical-align:middle;">
+            <img src="https://org59941.icns.email/buttons/linkedin3-small-000000-FFFFFF-FFFFFF-round-left.png" width="101" height="22" alt="Let's Connect">
+          </a>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  const form = document.getElementById('editor-form');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get values from the form
+    const name = document.getElementById('name').value;
+    const title = document.getElementById('title').value;
+    const phone = document.getElementById('phone').value;
+    const linkedin = document.getElementById('linkedin').value;
+    const image = document.getElementById('image').value;
+
+    // Update the business card
+    document.getElementById('card-name').innerHTML = `<font color="#000000">${name}&nbsp;</font>`;
+    document.getElementById('card-title').innerHTML = `<font color="#555555">${title}</font>`;
+    document.getElementById('card-phone').innerHTML = `<a href="tel:${phone}" style="color:#666666;text-decoration:none;" target="_blank">${phone}</a>`;
+    document.getElementById('card-linkedin').href = linkedin;
+    document.getElementById('card-image').src = image;
+  });
+</script>
+
+</body>
+</html>
