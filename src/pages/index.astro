@@ -3,15 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoodRequest Business Signature Generator</title>
+  <title>Business Card Editor</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
     }
     .card {
       max-width: 318px;
       border: 1px solid #ccc;
       padding: 15px;
+      background-color: #fff;
       margin-bottom: 20px;
     }
     .card img {
@@ -31,6 +42,8 @@
       width: 100%;
       padding: 8px;
       box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     .submit-btn, .copy-btn {
       padding: 10px 15px;
@@ -39,70 +52,79 @@
       border: none;
       cursor: pointer;
       margin-top: 10px;
+      border-radius: 4px;
     }
     .copy-btn {
       background-color: #4CAF50;
+    }
+    .output-area {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #eaeaea;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
 
-<h2>Edit Business Card</h2>
+<div class="container">
+  <h2>Edit Business Card</h2>
 
-<form id="editor-form">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" id="name" value="Martin Macík">
-  </div>
-  <div class="form-group">
-    <label for="title">Job Title</label>
-    <input type="text" id="title" value="Head of Business">
-  </div>
-  <div class="form-group">
-    <label for="phone">Telephone Number</label>
-    <input type="tel" id="phone" value="+421 908 837 627">
-  </div>
-  <div class="form-group">
-    <label for="linkedin">LinkedIn URL</label>
-    <input type="url" id="linkedin" value="https://www.linkedin.com/in/martin-mac%C3%ADk/">
-  </div>
-  <div class="form-group">
-    <label for="image">Image URL</label>
-    <input type="url" id="image" value="https://goodrequest-web.s3.eu-central-1.amazonaws.com/Macik_2037533c8c.png?updated_at=2024-10-02T10:08:22.009Z">
-  </div>
-  <button type="submit" class="submit-btn">Update Card</button>
-  <button type="button" class="copy-btn" onclick="copyHTML()">Copy HTML</button>
-</form>
+  <form id="editor-form">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" value="John Doe">
+    </div>
+    <div class="form-group">
+      <label for="title">Job Title</label>
+      <input type="text" id="title" value="Software Engineer">
+    </div>
+    <div class="form-group">
+      <label for="phone">Telephone Number</label>
+      <input type="tel" id="phone" value="+123 456 7890">
+    </div>
+    <div class="form-group">
+      <label for="linkedin">LinkedIn URL</label>
+      <input type="url" id="linkedin" value="https://www.linkedin.com/in/johndoe/">
+    </div>
+    <div class="form-group">
+      <label for="image">Image URL</label>
+      <input type="url" id="image" value="https://via.placeholder.com/80">
+    </div>
+    <button type="submit" class="submit-btn">Update Card</button>
+    <button type="button" class="copy-btn" onclick="copyHTML()">Copy HTML</button>
+  </form>
 
-<h2>Business Card Preview</h2>
-<table cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;table-layout:fixed;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;max-width:318px;" width="280" class="card" id="card-preview">
-  <tbody>
-    <tr>
-      <td style="width: 80px; vertical-align: middle;">
-        <img id="card-image" src="https://goodrequest-web.s3.eu-central-1.amazonaws.com/Macik_2037533c8c.png?updated_at=2024-10-02T10:08:22.009Z" alt="">
-      </td>
-      <td style="color:#555555;font-size:13px; vertical-align: middle; padding-left:15px; padding-top:10px; padding-bottom:10px;">
-        <p style="margin:5px 0; line-height: 1;">
-          <span id="card-name" style="font-weight: bold; font-size: 20px;"><font color="#000000">Martin Macík&nbsp;</font></span>
-        </p>
-        <p id="card-title" style="margin:5px 0; line-height: 1;">
-          <font color="#555555">Head of Business</font>
-        </p>
-        <p id="card-phone" style="margin:5px 0; line-height: 1;">
-          <a href="tel:+421901 000 000" style="color:#666666;text-decoration:none;" target="_blank">+421 901 000 000</a>
-        </p>
-        <p style="margin:5px 0; line-height: 1;">
-          <a href="https://www.goodrequest.com/" style="color:#00a8e2;text-decoration:none;" target="_blank">www.goodrequest.com</a>
-        </p>
-        <p style="margin:5px 0; line-height: 1;">
-          <a id="card-linkedin" href="https://www.linkedin.com/in/martin-mac%C3%ADk/" target="_blank" style="display:inline-block;vertical-align:middle;">
-            <img src="https://org59941.icns.email/buttons/linkedin3-small-000000-FFFFFF-FFFFFF-round-left.png" width="80" height="18" alt="Let's Connect">
-          </a>
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <h2>Business Card Preview</h2>
+  <table cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;table-layout:fixed;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;max-width:318px;" width="280" class="card" id="card-preview">
+    <tbody>
+      <tr>
+        <td style="width: 80px; vertical-align: middle;">
+          <img id="card-image" src="https://via.placeholder.com/80" alt="">
+        </td>
+        <td style="color:#555555;font-size:12px; vertical-align: middle; padding-left:15px; padding-top:10px; padding-bottom:10px;">
+          <p style="margin:5px 0; line-height: 1;">
+            <span id="card-name" style="font-weight: bold; font-size: 20px;"><font color="#000000">John Doe&nbsp;</font></span>
+          </p>
+          <p id="card-title" style="margin:5px 0; line-height: 1;">
+            <font color="#555555">Software Engineer</font>
+          </p>
+          <p id="card-phone" style="margin:5px 0; line-height: 1;">
+            <a href="tel:+1234567890" style="color:#666666;text-decoration:none;" target="_blank">+123 456 7890</a>
+          </p>
+          <p style="margin:5px 0; line-height: 1;">
+            <a href="https://www.linkedin.com/in/johndoe/" style="color:#00a8e2;text-decoration:none;" target="_blank">www.example.com</a>
+          </p>
+          <p style="margin:5px 0; line-height: 1;">
+            <a id="card-linkedin" href="https://www.linkedin.com/in/johndoe/" target="_blank" style="display:inline-block;vertical-align:middle;">
+              <img src="https://org59941.icns.email/buttons/linkedin3-small-000000-FFFFFF-FFFFFF-round-left.png" width="101" height="22" alt="Let's Connect">
+            </a>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <script>
   const form = document.getElementById('editor-form');
@@ -133,7 +155,7 @@
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    alert('Business signature HTML copied to clipboard!');
+    alert('Business card HTML copied to clipboard!');
   }
 </script>
 
